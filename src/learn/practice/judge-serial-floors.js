@@ -1,46 +1,46 @@
-// 2-5を取得するには何が必要か？
-// 最初の値と、最後の値
-// 最初の値はどうやったら求まる？
-// 配列を走査して、最初にf[i+1] - f[i] = 1になるところ
-// 最後の値はどうやったら求まる？
-// 最初のfloorからはじめて、最後にf[i+1] - f[i]が 1以外になるところ
-// or
-// f[i+1]がなくなるところ
+const vacantFloors = [2, 3, 4, 5, 7, 8, 9]; // 空いているフロア
+const serialFloors = bundleSerialFloors(vacantFloors);
+serialFloors.forEach((str) => {
+  console.log(str);
+});
 
-var vacantFloors = [2, 3, 4, 5, 7, 8, 9];
+function bundleSerialFloors(floors) {
+  var first = 0; // 連続して空いている最初の階
+  var last = 0; // 連続して空いている最後の階
 
-var first = 0;
-var last = 0;
-var currentFloor = vacantFloors[0];
-var serialFloors = [];
+  var currentFloor = floors[0]; // 現在の階
+  var serialFloors = []; // 連続して空いている階を ${first}-${last} フォーマットで格納する配列
 
-for (i = 0; i < vacantFloors.length; i++) {
-  currentFloor = vacantFloors[i];
-  nextFloor = vacantFloors[i + 1];
-  if (!nextFloor) {
-    if (first != 0 && last == 0) {
+  for (i = 0; i < floors.length; i++) {
+    currentFloor = floors[i];
+    nextFloor = floors[i + 1];
+
+    if (!nextFloor) {
+      if (!first) break;
       last = currentFloor;
     } else {
-      break;
+      var isNextFloorSerial = nextFloor - currentFloor == 1; // 次の階が連続しているか
+      // 連続する最初の階がまだ見つかっていない場合
+      if (!first) {
+        if (isNextFloorSerial) {
+          first = currentFloor;
+        }
+        continue;
+      }
+      // 連続する最初の階が見つかっている場合
+      if (!isNextFloorSerial) {
+        last = currentFloor;
+      }
     }
-  }
-  if (nextFloor - currentFloor == 1) {
-    if (first == 0) {
-      first = currentFloor;
-      continue;
-    }
-  } else {
-    if (first == 0) {
-      continue;
-    } else {
-      last = currentFloor;
+
+    // 連続する最初の階と最後の階が見つかっている場合
+    if (first && last) {
       serialFloors.push(first + "-" + last);
+
+      // 連続する最初の階と最後の階を初期化し、次の連続する階を探す
       first = 0;
       last = 0;
     }
   }
+  return serialFloors;
 }
-
-serialFloors.forEach((str) => {
-  console.log(str);
-});
