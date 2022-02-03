@@ -5,11 +5,10 @@ serialFloors.forEach((str) => {
 });
 
 function bundleSerialFloors(floors) {
+  var serialFloors = []; // 連続して空いている階を ${serialFirst}-${serialLast} フォーマットで格納する配列
+  var currentFloor = floors[0]; // 現在の階
   var serialFirst = 0; // 連続して空いている最初の階
   var serialLast = 0; // 連続して空いている最後の階
-
-  var currentFloor = floors[0]; // 現在の階
-  var serialFloors = []; // 連続して空いている階を ${serialFirst}-${serialLast} フォーマットで格納する配列
 
   for (i = 0; i < floors.length; i++) {
     currentFloor = floors[i];
