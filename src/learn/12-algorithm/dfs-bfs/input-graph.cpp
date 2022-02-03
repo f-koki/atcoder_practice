@@ -21,6 +21,8 @@ int main()
     // 無向グラフならこっちもやる
     // G[b].push_back(a);
   }
+
+  // 入力したグラフのoutput
   for (int i = 0; i < M; i++)
   {
     for (int j = 0; j < G[i].size(); j++)
