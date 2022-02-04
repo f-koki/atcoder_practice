@@ -1,3 +1,8 @@
+// 要件: 連続して空いているフロアをまとめた文字列を作成する
+// 例1: [2,3,4,5] -> "2-5"
+// 例2: [2,3,4,5,7,8,9] -> "2-5","7-9"
+// 前提: 階数は自然数とする
+
 const vacantFloors = [2, 3, 4, 5, 7, 8, 9]; // 空いているフロア
 const serialFloors = bundleSerialFloors(vacantFloors);
 serialFloors.forEach((str) => {
