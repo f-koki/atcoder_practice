@@ -12,38 +12,38 @@ serialFloors.forEach((str) => {
 function bundleSerialFloors(floors) {
   var serialFloors = []; // 連続して空いている階を ${serialFirst}-${serialLast} フォーマットで格納する配列
   var currentFloor = floors[0]; // 現在の階
-  var serialFirst = 0; // 連続して空いている最初の階
-  var serialLast = 0; // 連続して空いている最後の階
+  var serialFirstFloor = 0; // 連続して空いている最初の階
+  var serialLastFloor = 0; // 連続して空いている最後の階
 
   for (i = 0; i < floors.length; i++) {
     currentFloor = floors[i];
     nextFloor = floors[i + 1];
 
     if (!nextFloor) {
-      if (!serialFirst) break;
-      serialLast = currentFloor;
+      if (!serialFirstFloor) break;
+      serialLastFloor = currentFloor;
     } else {
       var isNextFloorSerial = nextFloor - currentFloor == 1; // 次の階が連続しているか
       // 連続する最初の階がまだ見つかっていない場合
-      if (!serialFirst) {
+      if (!serialFirstFloor) {
         if (isNextFloorSerial) {
-          serialFirst = currentFloor;
+          serialFirstFloor = currentFloor;
         }
         continue;
       }
       // 連続する最初の階が見つかっている場合
       if (!isNextFloorSerial) {
-        serialLast = currentFloor;
+        serialLastFloor = currentFloor;
       }
     }
 
     // 連続する最初の階と最後の階が見つかっている場合
-    if (serialFirst && serialLast) {
-      serialFloors.push(serialFirst + "-" + serialLast);
+    if (serialFirstFloor && serialLastFloor) {
+      serialFloors.push(serialFirstFloor + "-" + serialLastFloor);
 
       // 初期化し、次の連続する階を探す
-      serialFirst = 0;
-      serialLast = 0;
+      serialFirstFloor = 0;
+      serialLastFloor = 0;
     }
   }
   return serialFloors;
